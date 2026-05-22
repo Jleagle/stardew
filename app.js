@@ -3,6 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleFilterBtn = document.getElementById('toggle-filter');
     
     let completedTasks = JSON.parse(localStorage.getItem('stardew_completed_tasks')) || {};
+    
+    // Default root node to checked if not already set
+    if (completedTasks['inherit_farm'] === undefined) {
+        completedTasks['inherit_farm'] = true;
+    }
+
     let hideCompleted = localStorage.getItem('stardew_hide_completed') === 'true';
 
     // Initial button state
