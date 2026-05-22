@@ -22,18 +22,32 @@ body {
     color: var(--color-text);
     font-family: var(--font-body);
     line-height: 1.6;
-    padding: 2rem;
+    padding: 0;
+    margin: 0;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto 3rem auto;
+    width: 100%;
     border-bottom: 2px solid var(--color-border);
-    padding-bottom: 1rem;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-bg);
+    z-index: 100;
+    height: 80px; /* Explicit height for calculations */
+}
+
+main {
+    padding: 2rem;
+    overflow: auto;
+    height: calc(100vh - 80px);
+    width: 100vw;
 }
 
 h1 {
