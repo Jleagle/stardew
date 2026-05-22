@@ -52,14 +52,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Render tree recursively
     function renderTree(nodes) {
         const ul = document.createElement('ul');
+        let visibleChildrenCount = 0;
+
         nodes.forEach(node => {
+            const isFullBranchDone = isBranchComplete(node);
+            
+            // Skip rendering this node and its children if the branch is done and filtering is on
+            if (isFullBranchDone && hideCompleted) {
+                return;
+            }
+
+            visibleChildrenCount++;
             const li = document.createElement('li');
             const isDone = !!completedTasks[node.id];
-            const isFullBranchDone = isBranchComplete(node);
-
-            if (isFullBranchDone) {
-                li.classList.add('hidden-branch');
-            }
 
             const card = document.createElement('div');
             card.className = `node-card ${isDone ? 'completed' : ''}`;
@@ -78,11 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
             li.appendChild(card);
 
             if (node.children && node.children.length > 0) {
-                li.appendChild(renderTree(node.children));
+                const childUl = renderTree(node.children);
+                
+                // Only append the child UL if it has visible children
+                if (childUl.getAttribute('data-visible-children') !== '0') {
+                    li.appendChild(childUl);
+                }
             }
 
             ul.appendChild(li);
         });
+        
+        ul.setAttribute('data-visible-children', visibleChildrenCount);
         return ul;
     }
 
