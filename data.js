@@ -1,6 +1,7 @@
 const stardewTasks = [
   // --- THE BEGINNING ---
   { id: "inherit_farm", parentId: null, label: "Inherit a farm" },
+  { id: "starter_tools", parentId: "inherit_farm", label: "Obtain Starter Tools" },
 
   // --- CORE TOOLS & MINING ---
   { id: "pickaxe", parentId: "inherit_farm", label: "Get Pickaxe" },
@@ -28,7 +29,6 @@ const stardewTasks = [
 
   { id: "iron_pickaxe", parentId: "iron_bar", label: "Upgrade to Steel Pickaxe" },
   { id: "dwarf_access", parentId: "iron_pickaxe", label: "Break Boulder to Dwarf (Mines)" },
-  { id: "quality_sprinkler", parentId: "iron_bar", label: "Craft Quality Sprinkler" },
 
   { id: "mines_80", parentId: "mines_40", label: "Reach Mines Level 80" },
   { id: "gold_ore", parentId: "mines_80", label: "Mine Gold Ore" },
@@ -46,6 +46,11 @@ const stardewTasks = [
   // --- SHOP & PERSONAL UPGRADES ---
   { id: "backpack_24", parentId: "inherit_farm", label: "Large Pack (24 slots)" },
   { id: "backpack_36", parentId: "backpack_24", label: "Deluxe Pack (36 slots)" },
+
+  // --- HOUSE UPGRADES ---
+  { id: "house_upgrade_1", parentId: "inherit_farm", label: "Upgrade Farmhouse (Kitchen)" },
+  { id: "house_upgrade_2", parentId: "house_upgrade_1", label: "Upgrade Farmhouse (Nursery)" },
+  { id: "cellar_upgrade", parentId: "house_upgrade_2", label: "Add Cellar (Casks)" },
 
   // --- MUSEUM & SEWERS ---
   { id: "museum_5", parentId: "inherit_farm", label: "Donate 5 Items (Seeds)" },
@@ -153,15 +158,196 @@ const stardewTasks = [
   { id: "magnifying_glass", parentId: "winter_mystery", label: "Obtain Magnifying Glass" },
   { id: "secret_notes", parentId: "magnifying_glass", label: "Find & Read Secret Notes" },
 
-  // --- FARMING & CRAFTING ---
+  // --- FORAGING PROGRESSION ---
+  { id: "foraging_lv1", parentId: "inherit_farm", label: "Reach Foraging Level 1" },
+  { id: "foraging_lv2", parentId: "foraging_lv1", label: "Reach Foraging Level 2" },
+  { id: "charcoal_kiln", parentId: "foraging_lv2", label: "Craft Charcoal Kiln" },
+  { id: "foraging_lv3", parentId: "foraging_lv2", label: "Reach Foraging Level 3" },
+  { id: "tapper", parentId: "foraging_lv3", label: "Craft Tapper" },
+  { id: "foraging_lv4", parentId: "foraging_lv3", label: "Reach Foraging Level 4" },
+  { id: "mushroom_log", parentId: "foraging_lv4", label: "Craft Mushroom Log" },
+  { id: "foraging_lv6", parentId: "foraging_lv4", label: "Reach Foraging Level 6" },
+  { id: "lightning_rod", parentId: "foraging_lv6", label: "Craft Lightning Rod" },
+  { id: "foraging_lv7", parentId: "foraging_lv6", label: "Reach Foraging Level 7" },
+  { id: "tree_fertilizer", parentId: "foraging_lv7", label: "Craft Tree Fertilizer" },
+  { id: "foraging_lv8", parentId: "foraging_lv7", label: "Reach Foraging Level 8" },
+  { id: "tent_kit", parentId: "foraging_lv8", label: "Craft Tent Kit" },
+  { id: "foraging_lv9", parentId: "foraging_lv8", label: "Reach Foraging Level 9" },
+  { id: "cookout_kit", parentId: "foraging_lv9", label: "Craft Cookout Kit" },
+
+  // --- MINING PROGRESSION ---
+  { id: "mining_lv1", parentId: "mines_entry", label: "Reach Mining Level 1" },
+  { id: "cherry_bomb", parentId: "mining_lv1", label: "Craft Cherry Bomb" },
+  { id: "mining_lv2", parentId: "mining_lv1", label: "Reach Mining Level 2" },
+  { id: "staircase", parentId: "mining_lv2", label: "Craft Staircase" },
+  { id: "mining_lv6", parentId: "mining_lv2", label: "Reach Mining Level 6" },
+  { id: "bomb", parentId: "mining_lv6", label: "Craft Bomb" },
+  { id: "mining_lv8", parentId: "mining_lv6", label: "Reach Mining Level 8" },
+  { id: "mega_bomb", parentId: "mining_lv8", label: "Craft Mega Bomb" },
+  { id: "mining_lv9", parentId: "mining_lv8", label: "Reach Mining Level 9" },
+  { id: "crystalarium", parentId: "mining_lv9", label: "Craft Crystalarium" },
+
+  // --- FISHING PROGRESSION ---
+  { id: "fishing_lv1", parentId: "inherit_farm", label: "Reach Fishing Level 1" },
+  { id: "fishing_lv2", parentId: "fishing_lv1", label: "Reach Fishing Level 2" },
+  { id: "bait", parentId: "fishing_lv2", label: "Craft Bait" },
+  { id: "wild_bait", parentId: "fishing_lv2", label: "Obtain Wild Bait (Linus 4-Heart Event)" },
+  { id: "fishing_lv3", parentId: "fishing_lv2", label: "Reach Fishing Level 3" },
+  { id: "crab_pot", parentId: "fishing_lv3", label: "Craft Crab Pot" },
+  { id: "fishing_lv4", parentId: "fishing_lv3", label: "Reach Fishing Level 4" },
+  { id: "recycling_machine", parentId: "fishing_lv4", label: "Craft Recycling Machine" },
+  { id: "fishing_lv6", parentId: "fishing_lv4", label: "Reach Fishing Level 6" },
+  { id: "bait_maker", parentId: "fishing_lv6", label: "Craft Bait Maker" },
+  { id: "targeted_bait", parentId: "fishing_lv6", label: "Craft Targeted Bait" },
+  { id: "spinner", parentId: "fishing_lv6", label: "Craft Spinner" },
+  { id: "trap_bobber", parentId: "fishing_lv6", label: "Craft Trap Bobber" },
+  { id: "lead_bobber", parentId: "fishing_lv6", label: "Craft Lead Bobber" },
+  { id: "sonar_bobber", parentId: "fishing_lv6", label: "Craft Sonar Bobber" },
+  { id: "fishing_lv7", parentId: "fishing_lv6", label: "Reach Fishing Level 7" },
+  { id: "cork_bobber", parentId: "fishing_lv7", label: "Craft Cork Bobber" },
+  { id: "treasure_hunter", parentId: "fishing_lv7", label: "Craft Treasure Hunter" },
+  { id: "fishing_lv8", parentId: "fishing_lv7", label: "Reach Fishing Level 8" },
+  { id: "worm_bin", parentId: "fishing_lv8", label: "Craft Worm Bin" },
+  { id: "deluxe_worm_bin", parentId: "worm_bin", label: "Craft Deluxe Worm Bin" },
+  { id: "dressed_spinner", parentId: "fishing_lv8", label: "Craft Dressed Spinner" },
+  { id: "barbed_hook", parentId: "fishing_lv8", label: "Craft Barbed Hook" },
+  { id: "fishing_lv9", parentId: "fishing_lv8", label: "Reach Fishing Level 9" },
+  { id: "magnet", parentId: "fishing_lv9", label: "Craft Magnet" },
+
+  // --- COMBAT PROGRESSION ---
+  { id: "combat_lv1", parentId: "mines_entry", label: "Reach Combat Level 1" },
+  { id: "combat_lv6", parentId: "combat_lv1", label: "Reach Combat Level 6" },
+  { id: "slime_egg_press", parentId: "combat_lv6", label: "Craft Slime Egg-Press" },
+  { id: "combat_lv8", parentId: "combat_lv6", label: "Reach Combat Level 8" },
+  { id: "slime_incubator", parentId: "combat_lv8", label: "Craft Slime Incubator" },
+
+  // --- FARMING & ARTISAN PROGRESSION ---
   { id: "parsnip", parentId: "inherit_farm", label: "Grow Parsnips" },
   { id: "farming_lv1", parentId: "parsnip", label: "Reach Farming Level 1" },
   { id: "scarecrow", parentId: "farming_lv1", label: "Craft Scarecrow" },
+  { id: "basic_fertilizer", parentId: "farming_lv1", label: "Craft Basic Fertilizer" },
   
-  { id: "farming_lv4", parentId: "farming_lv1", label: "Reach Farming Level 4" },
+  { id: "farming_lv2", parentId: "farming_lv1", label: "Reach Farming Level 2" },
+  { id: "mayonnaise_machine", parentId: "farming_lv2", label: "Craft Mayonnaise Machine" },
+  { id: "sprinkler", parentId: "farming_lv2", label: "Craft Sprinkler" },
+  { id: "stone_fence", parentId: "farming_lv2", label: "Craft Stone Fence" },
+
+  { id: "farming_lv3", parentId: "farming_lv2", label: "Reach Farming Level 3" },
+  { id: "bee_house", parentId: "farming_lv3", label: "Craft Bee House" },
+  { id: "speed_gro", parentId: "farming_lv3", label: "Craft Speed-Gro" },
+
+  { id: "farming_lv4", parentId: "farming_lv3", label: "Reach Farming Level 4" },
   { id: "preserves_jar", parentId: "farming_lv4", label: "Craft Preserves Jar" },
-  
-  { id: "farming_lv8", parentId: "farming_lv4", label: "Reach Farming Level 8" },
+  { id: "basic_retaining_soil", parentId: "farming_lv4", label: "Craft Basic Retaining Soil" },
+
+  { id: "farming_lv6", parentId: "farming_lv4", label: "Reach Farming Level 6" },
+  { id: "cheese_press", parentId: "farming_lv6", label: "Craft Cheese Press" },
+  { id: "quality_sprinkler", parentId: "farming_lv6", label: "Craft Quality Sprinkler" },
+  { id: "iron_fence", parentId: "farming_lv6", label: "Craft Iron Fence" },
+
+  { id: "farming_lv7", parentId: "farming_lv6", label: "Reach Farming Level 7" },
+  { id: "loom", parentId: "farming_lv7", label: "Craft Loom" },
+  { id: "quality_retaining_soil", parentId: "farming_lv7", label: "Craft Quality Retaining Soil" },
+
+  { id: "farming_lv8", parentId: "farming_lv7", label: "Reach Farming Level 8" },
   { id: "oil_maker", parentId: "farming_lv8", label: "Craft Oil Maker" },
-  { id: "keg", parentId: "iron_bar", label: "Craft Keg" }
+  { id: "keg", parentId: "farming_lv8", label: "Craft Keg" },
+  { id: "deluxe_speed_gro", parentId: "farming_lv8", label: "Craft Deluxe Speed-Gro" },
+  { id: "hardwood_fence", parentId: "farming_lv8", label: "Craft Hardwood Fence" },
+
+  { id: "farming_lv9", parentId: "farming_lv8", label: "Reach Farming Level 9" },
+  { id: "seed_maker", parentId: "farming_lv9", label: "Craft Seed Maker" },
+  { id: "quality_fertilizer", parentId: "farming_lv9", label: "Craft Quality Fertilizer" },
+  { id: "iridium_sprinkler", parentId: "farming_lv9", label: "Craft Iridium Sprinkler" },
+
+  // --- SPECIAL ORDERS ---
+  { id: "special_orders", parentId: "cc_unlock", label: "Unlock Special Orders Board" },
+  
+  { id: "clint_special_order", parentId: "special_orders", label: "Complete Clint's Special Order (Cave Patrol)" },
+  { id: "geode_crusher", parentId: "clint_special_order", label: "Craft Geode Crusher" },
+  
+  { id: "robin_special_order", parentId: "special_orders", label: "Complete Robin's Special Order (Resource Clumping)" },
+  { id: "stone_chest", parentId: "robin_special_order", label: "Craft Stone Chest" },
+  
+  { id: "caroline_special_order", parentId: "special_orders", label: "Complete Caroline's Special Order (Island Ingredients)" },
+  { id: "solar_panel", parentId: "caroline_special_order", label: "Craft Solar Panel" },
+  
+  { id: "evelyn_special_order", parentId: "special_orders", label: "Complete Evelyn's Special Order (Gifts for George)" },
+  { id: "coffee_maker", parentId: "evelyn_special_order", label: "Obtain Coffee Maker" },
+  
+  { id: "pierre_special_order", parentId: "special_orders", label: "Complete Pierre's Special Order (Prime Produce)" },
+  { id: "mini_shipping_bin", parentId: "pierre_special_order", label: "Craft Mini-Shipping Bin" },
+  
+  { id: "willy_special_order", parentId: "special_orders", label: "Complete Willy's Special Order (Tropical Fish)" },
+  { id: "quality_bobber", parentId: "willy_special_order", label: "Craft Quality Bobber" },
+  
+  { id: "demetrius_special_order", parentId: "special_orders", label: "Complete Demetrius' Special Order (Biome Research)" },
+  { id: "farm_computer", parentId: "demetrius_special_order", label: "Craft Farm Computer" },
+  
+  { id: "gunther_special_order", parentId: "special_orders", label: "Complete Gunther's Special Order (Fragments of the Past)" },
+  { id: "bone_mill", parentId: "gunther_special_order", label: "Craft Bone Mill" },
+
+  // --- CARPENTRY & TOWN SHOP SERVICES ---
+  { id: "robin_shop", parentId: "inherit_farm", label: "Visit Robin's Carpentry Shop" },
+  { id: "workbench", parentId: "robin_shop", label: "Craft Workbench" },
+  { id: "telephone", parentId: "robin_shop", label: "Craft Telephone" },
+  { id: "wood_chipper", parentId: "robin_shop", label: "Craft Wood Chipper" },
+  { id: "mini_fridge", parentId: "robin_shop", label: "Craft Mini-Fridge" },
+  { id: "big_chest", parentId: "robin_shop", label: "Craft Big Chest" },
+
+  { id: "pierre_shop", parentId: "inherit_farm", label: "Visit Pierre's General Store" },
+  { id: "dehydrator", parentId: "pierre_shop", label: "Craft Dehydrator" },
+
+  { id: "willy_shop", parentId: "inherit_farm", label: "Visit Willy's Fish Shop" },
+  { id: "fish_smoker", parentId: "willy_shop", label: "Craft Fish Smoker" },
+
+  { id: "clint_shop", parentId: "inherit_farm", label: "Visit Clint's Blacksmith Shop" },
+  { id: "heavy_furnace", parentId: "clint_shop", label: "Craft Heavy Furnace" },
+
+  { id: "dwarf_shop", parentId: "talk_to_dwarf", label: "Unlock Dwarf's Shop" },
+  { id: "big_stone_chest", parentId: "dwarf_shop", label: "Craft Big Stone Chest" },
+
+  // --- MR. QI'S WALNUT ROOM SHOP ---
+  { id: "heavy_tapper", parentId: "qi_walnut_room", label: "Craft Heavy Tapper" },
+  { id: "deluxe_fertilizer", parentId: "qi_walnut_room", label: "Craft Deluxe Fertilizer" },
+  { id: "hyper_speed_gro", parentId: "qi_walnut_room", label: "Craft Hyper Speed-Gro" },
+  { id: "magic_bait", parentId: "qi_walnut_room", label: "Craft Magic Bait" },
+  { id: "junimo_chest", parentId: "qi_walnut_room", label: "Craft Junimo Chest" },
+  { id: "deconstructor", parentId: "qi_walnut_room", label: "Craft Deconstructor" },
+  { id: "hopper", parentId: "qi_walnut_room", label: "Craft Hopper" },
+
+  // --- THE MASTERY CAVE ---
+  { id: "mastery_cave", parentId: "inherit_farm", label: "Unlock the Mastery Cave" },
+  
+  { id: "farming_mastery", parentId: "mastery_cave", label: "Claim Farming Mastery" },
+  { id: "statue_of_blessings", parentId: "farming_mastery", label: "Craft Statue Of Blessings" },
+  
+  { id: "fishing_mastery", parentId: "mastery_cave", label: "Claim Fishing Mastery" },
+  { id: "challenge_bait", parentId: "fishing_mastery", label: "Craft Challenge Bait" },
+  
+  { id: "combat_mastery", parentId: "mastery_cave", label: "Claim Combat Mastery" },
+  { id: "anvil", parentId: "combat_mastery", label: "Craft Anvil" },
+  
+  { id: "mining_mastery", parentId: "mastery_cave", label: "Claim Mining Mastery" },
+  { id: "statue_of_the_dwarf_king", parentId: "mining_mastery", label: "Craft Statue Of The Dwarf King" },
+
+  // --- ADDITIONAL CRAFTABLES & MISCELLANEOUS ---
+  { id: "cask", parentId: "cellar_upgrade", label: "Craft Cask" },
+  { id: "gate", parentId: "inherit_farm", label: "Craft Gate" },
+  { id: "wood_fence", parentId: "inherit_farm", label: "Craft Wood Fence" },
+  { id: "chest", parentId: "inherit_farm", label: "Craft Chest" },
+  { id: "wood_sign", parentId: "inherit_farm", label: "Craft Wood Sign" },
+  { id: "stone_sign", parentId: "inherit_farm", label: "Craft Stone Sign" },
+  { id: "text_sign", parentId: "robin_shop", label: "Craft Text Sign" },
+  { id: "dark_sign", parentId: "sewers", label: "Craft Dark Sign" },
+  { id: "curiosity_lure", parentId: "skull_cavern", label: "Obtain Curiosity Lure (Skull Cavern Drop)" },
+  { id: "garden_pot", parentId: "greenhouse", label: "Obtain Garden Pot (Evelyn Quest)" },
+  { id: "rarecrows", parentId: "inherit_farm", label: "Collect All 8 Rarecrows" },
+  { id: "deluxe_scarecrow", parentId: "rarecrows", label: "Craft Deluxe Scarecrow" },
+  { id: "mini_jukebox", parentId: "inherit_farm", label: "Obtain Mini-Jukebox (Gus 5-Heart Event)" },
+  { id: "sewing_machine", parentId: "inherit_farm", label: "Obtain Sewing Machine (Emily Quest)" },
+  { id: "fairy_dust", parentId: "ginger_island", label: "Craft Fairy Dust (Birdie Quest)" },
+  { id: "ostrich_incubator", parentId: "ginger_island", label: "Craft Ostrich Incubator (Professor Snail)" },
+  { id: "mini_forge", parentId: "volcano_forge", label: "Craft Mini-Forge" },
+  { id: "deluxe_retaining_soil", parentId: "ginger_island", label: "Craft Deluxe Retaining Soil (Island Trader)" }
 ];
