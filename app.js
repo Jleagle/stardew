@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleFilterBtn = document.getElementById('toggle-filter');
     
     let completedTasks = JSON.parse(localStorage.getItem('stardew_completed_tasks')) || {};
-    
+    let wasDragging = false;
     // Default root node to checked if not already set
     if (completedTasks['inherit_farm'] === undefined) {
         completedTasks['inherit_farm'] = true;
@@ -77,6 +77,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             card.addEventListener('click', (e) => {
                 e.preventDefault();
+                if (wasDragging) {
+                    return;
+                }
                 toggleTask(node.id);
             });
 
@@ -128,4 +131,69 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     updateView();
+
+    // Drag to pan logic for desktop (mouse events), with click protection for mobile and desktop
+    const mainElement = document.querySelector('main');
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let scrollStartX = 0, scrollStartY = 0;
+
+    const onPointerMove = (e) => {
+        if (!isDragging) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        // A threshold of 5 pixels to distinguish drag from tap/click
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5) {
+            wasDragging = true;
+        }
+
+        // Only scroll manually for mouse events; let mobile browsers scroll natively
+        if (wasDragging && e.pointerType === 'mouse') {
+            mainElement.scrollLeft = scrollStartX - dx;
+            mainElement.scrollTop = scrollStartY - dy;
+        }
+    };
+
+    const endDrag = (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+
+        if (e.pointerType === 'mouse') {
+            mainElement.classList.remove('dragging');
+        }
+
+        window.removeEventListener('pointermove', onPointerMove);
+        window.removeEventListener('pointerup', endDrag);
+        window.removeEventListener('pointercancel', endDrag);
+
+        // Keep wasDragging active for a tick to allow the click handler to intercept it
+        setTimeout(() => {
+            wasDragging = false;
+        }, 50);
+    };
+
+    mainElement.addEventListener('pointerdown', (e) => {
+        // Only trigger drag behavior if clicking on empty space or node cards.
+        // Don't drag if clicking buttons, links, etc.
+        if (e.target.closest('button, input, select, textarea, a')) {
+            return;
+        }
+
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        scrollStartX = mainElement.scrollLeft;
+        scrollStartY = mainElement.scrollTop;
+        wasDragging = false;
+
+        if (e.pointerType === 'mouse') {
+            mainElement.classList.add('dragging');
+        }
+
+        window.addEventListener('pointermove', onPointerMove);
+        window.addEventListener('pointerup', endDrag);
+        window.addEventListener('pointercancel', endDrag);
+    });
 });
